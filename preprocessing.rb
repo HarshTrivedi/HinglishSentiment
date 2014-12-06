@@ -9,6 +9,11 @@ updated_csv_arrays = []
 positive_emotions = "v grinning grin joy smiley smile clap smile_cat purple_heart green_heart blue_heart gift_heart raised_hands crown two_hearts heart dancer ok_hand relaxed star2 +1 joy_cat smiley_cat sweat_smile laughing wink blush yum hearts heart_eyes sunglasses kissing kissing_heart kissing_closed_eyes stuck_out_tongue stuck_out_tongue_winking_eye stuck_out_tongue_closed_eyes grimacing".split(" ")
 negative_emotions = "cold_sweat scream astonished flushed smirk expressionless unamused broken_heart sweat pensive confused disappointed worried angry cry persevere disappointed_relieved frowning anguished fearful weary tired_face sob".split(" ")
 dictinary_hash = {}
+
+equivalent_words_hash = {}
+CSV.foreach('grouped_dictionary_hash.csv') { |row| equivalent_words_hash["#{row[0]}"] = row[1]}
+
+
 CSV.foreach('finalData_1626.csv') do |row|
 	if not( row[0].nil? or row[1].nil? or row[1].strip.empty? )
 		tweet = row[0]
@@ -26,6 +31,11 @@ CSV.foreach('finalData_1626.csv') do |row|
 			end
 		end
 
+		disintegrated_tweet = []
+		updated_tweet.split(" ").each do |word|
+			disintegrated_tweet << (equivalent_words_hash["#{word}".gsub(/[^A-Za-z0-9#]/ , "")] || word)
+		end
+		updated_tweet = disintegrated_tweet.join(" ")
 
 
 		pos_degree = 0
@@ -49,7 +59,7 @@ CSV.foreach('finalData_1626.csv') do |row|
 		neg_emot_exists = (neg_degree > 0) ? 1 : 0
 		unknown_emot_exists = ( (total_emotions -pos_degree -neg_degree ) > 0 ) ? 1 : 0
 
-		happy_expression = tweet.gsub(/(([hH]+[Aae]+){2,})|([lL]+[oO0]+[lL]+)/).to_a.size
+		happy_expression = tweet.gsub(/(([hH]+[Aae]+){2,})|([lL]+[oO0]+[lL]+)|((pl[ea]*[szj]+)[\We])/).to_a.size
 
 		updated_csv_arrays << [ updated_tweet , row[1].to_i , pos_degree , neg_degree , total_emotions - pos_degree - neg_degree  , happy_expression]
 	end
