@@ -2,6 +2,9 @@
 require 'csv'
 require 'emoji_data'
 require 'awesome_print'
+require 'ffi/aspell'
+speller = FFI::Aspell::Speller.new('en_US')
+
 updated_csv_arrays = []
 positive_emotions = "v grinning grin joy smiley smile clap smile_cat purple_heart green_heart blue_heart gift_heart raised_hands crown two_hearts heart dancer ok_hand relaxed star2 +1 joy_cat smiley_cat sweat_smile laughing wink blush yum hearts heart_eyes sunglasses kissing kissing_heart kissing_closed_eyes stuck_out_tongue stuck_out_tongue_winking_eye stuck_out_tongue_closed_eyes grimacing".split(" ")
 negative_emotions = "cold_sweat scream astonished flushed smirk expressionless unamused broken_heart sweat pensive confused disappointed worried angry cry persevere disappointed_relieved frowning anguished fearful weary tired_face sob".split(" ")
@@ -12,7 +15,18 @@ CSV.foreach('finalData_1626.csv') do |row|
 		label = row[1]
 		updated_tweet = tweet.gsub(/(@\w+)|(http:\/\/t.co\/\w*)/ , "" )
 
-		updated_tweet.split(/[^\w]+/).each{|word| (dictinary_hash[word.downcase].nil? ? (dictinary_hash[word.downcase] = 1 ) : (dictinary_hash[word.downcase] += 1 ) ) if word.size > 1}  if row[1].to_i == 1 or row[1].to_i == 2 or row[1].to_i == 0 
+
+		if row[1].to_i == 1 or row[1].to_i == 2 or row[1].to_i == 0 
+			updated_tweet.split(/[^A-Za-z0-9_#]/).each do |word| 
+				if (word.size > 1 and word["#"].nil?) 
+					# if speller.correct?(word)
+						(dictinary_hash[word.downcase].nil? ? (dictinary_hash[word.downcase] = 1 ) : (dictinary_hash[word.downcase] += 1 ) ) 
+					# end
+				end
+			end
+		end
+
+
 
 		pos_degree = 0
 		neg_degree = 0
@@ -61,3 +75,5 @@ CSV.open('hinglish_dictionary.csv', 'w') do |csv_object|
   end
 end
 
+
+speller.close
