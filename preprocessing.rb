@@ -69,7 +69,13 @@ end
 # Also remove the Hash tags
 # remove lolz type , haha type , hehe type
 
-CSV.open('hinglish_dictionary.csv', 'w') do |csv_object|
+CSV.open('hinglish_dictionary_alphabetically.csv', 'w') do |csv_object|
+  dictinary_hash.to_a.sort_by(&:first).each do |row_array|
+    csv_object << row_array
+  end
+end
+
+CSV.open('hinglish_dictionary_by_frequencies.csv', 'w') do |csv_object|
   dictinary_hash.to_a.sort_by(&:last).each do |row_array|
     csv_object << row_array
   end
