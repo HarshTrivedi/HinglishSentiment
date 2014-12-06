@@ -87,3 +87,4 @@ speller.close
 # remove _ underscores -> 6196
 # remove numbers -> 6143
 # remove lolz and haha types -> 6107
+# after grouping .. -> 3588 uniq groups
