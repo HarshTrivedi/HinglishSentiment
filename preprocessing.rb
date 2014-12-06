@@ -62,13 +62,6 @@ CSV.open('preprocessed_data.csv', 'w') do |csv_object|
 end
 
 
-#remove all not alphabetic characters (eg: , . "" ' ? / \\} etc)
-#remove all pure english words from this: use ffi-aspell gem for it.
-#similieys shoud not be included in hinglish dictionary
-# &=gt , lt etc... also should not be included
-# Also remove the Hash tags
-# remove lolz type , haha type , hehe type
-
 CSV.open('hinglish_dictionary_alphabetically.csv', 'w') do |csv_object|
   dictinary_hash.to_a.sort_by(&:first).each do |row_array|
     csv_object << row_array
@@ -83,3 +76,14 @@ end
 
 
 speller.close
+
+
+# alalysis of preprocessing the dictionary:
+# original 8960
+# remove non-word characters -> 7660
+# change all words to lower-case -> 6392
+# remove single letter words -> 6357
+# remove words with hash tags -> 6203
+# remove _ underscores -> 6196
+# remove numbers -> 6143
+# remove lolz and haha types -> 6107
