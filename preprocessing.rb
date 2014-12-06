@@ -11,7 +11,9 @@ CSV.foreach('finalData_1626.csv') do |row|
 		tweet = row[0]
 		label = row[1]
 		updated_tweet = tweet.gsub(/(@\w+)|(http:\/\/t.co\/\w*)/ , "" )
-		updated_tweet.split(" ").each{|word| dictinary_hash[word].nil? ? (dictinary_hash[word] = 1 ) : (dictinary_hash[word] += 1 ) }  if row[1].to_i == 1 or row[1].to_i == 2 or row[1].to_i == 0 
+
+		updated_tweet.split(/[^\w]+/).each{|word| (dictinary_hash[word.downcase].nil? ? (dictinary_hash[word.downcase] = 1 ) : (dictinary_hash[word.downcase] += 1 ) ) if word.size > 1}  if row[1].to_i == 1 or row[1].to_i == 2 or row[1].to_i == 0 
+
 		pos_degree = 0
 		neg_degree = 0
 		total_emotions = 0
@@ -50,6 +52,8 @@ end
 #remove all pure english words from this: use ffi-aspell gem for it.
 #similieys shoud not be included in hinglish dictionary
 # &=gt , lt etc... also should not be included
+# Also remove the Hash tags
+# remove lolz type , haha type , hehe type
 
 CSV.open('hinglish_dictionary.csv', 'w') do |csv_object|
   dictinary_hash.to_a.sort_by(&:last).each do |row_array|
