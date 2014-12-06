@@ -1,15 +1,17 @@
 
 require 'csv'
 require 'emoji_data'
-
+require 'awesome_print'
 updated_csv_arrays = []
 positive_emotions = "v grinning grin joy smiley smile clap smile_cat purple_heart green_heart blue_heart gift_heart raised_hands crown two_hearts heart dancer ok_hand relaxed star2 +1 joy_cat smiley_cat sweat_smile laughing wink blush yum hearts heart_eyes sunglasses kissing kissing_heart kissing_closed_eyes stuck_out_tongue stuck_out_tongue_winking_eye stuck_out_tongue_closed_eyes grimacing".split(" ")
 negative_emotions = "cold_sweat scream astonished flushed smirk expressionless unamused broken_heart sweat pensive confused disappointed worried angry cry persevere disappointed_relieved frowning anguished fearful weary tired_face sob".split(" ")
+dictinary_hash = {}
 CSV.foreach('finalData_1626.csv') do |row|
 	if not( row[0].nil? or row[1].nil? or row[1].strip.empty? )
 		tweet = row[0]
 		label = row[1]
 		updated_tweet = tweet.gsub(/(@\w+)|(http:\/\/t.co\/\w*)/ , "" )
+		updated_tweet.split(" ").each{|word| dictinary_hash[word].nil? ? (dictinary_hash[word] = 1 ) : (dictinary_hash[word] += 1 ) }  if row[1].to_i == 1 or row[1].to_i == 2 or row[1].to_i == 0 
 		pos_degree = 0
 		neg_degree = 0
 		total_emotions = 0
@@ -42,3 +44,16 @@ CSV.open('preprocessed_data.csv', 'w') do |csv_object|
     csv_object << row_array
   end
 end
+
+
+#remove all not alphabetic characters (eg: , . "" ' ? / \\} etc)
+#remove all pure english words from this: use ffi-aspell gem for it.
+#similieys shoud not be included in hinglish dictionary
+# &=gt , lt etc... also should not be included
+
+CSV.open('hinglish_dictionary.csv', 'w') do |csv_object|
+  dictinary_hash.to_a.sort_by(&:last).each do |row_array|
+    csv_object << row_array
+  end
+end
+
