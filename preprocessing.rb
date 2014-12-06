@@ -17,8 +17,8 @@ CSV.foreach('finalData_1626.csv') do |row|
 
 
 		if row[1].to_i == 1 or row[1].to_i == 2 or row[1].to_i == 0 
-			updated_tweet.split(/[^A-Za-z0-9_#]/).each do |word| 
-				if (word.size > 1 and word["#"].nil?) 
+			updated_tweet.split(/[^A-Za-z0-9#]/).each do |word| 
+				if (word.size > 1 and word["#"].nil? and !(Float(word) rescue false )  and not word[/(([hH]+[Aae]+){2,})|([lL]+[oO0]+[lL]+)/] ) 
 					# if speller.correct?(word)
 						(dictinary_hash[word.downcase].nil? ? (dictinary_hash[word.downcase] = 1 ) : (dictinary_hash[word.downcase] += 1 ) ) 
 					# end
