@@ -13,7 +13,7 @@ CSV.foreach('finalData_1626.csv') do |row|
 	if not( row[0].nil? or row[1].nil? or row[1].strip.empty? )
 		tweet = row[0]
 		label = row[1]
-		updated_tweet = tweet.gsub(/(@\w+)|(http:\/\/t.co\/\w*)/ , "" )
+		updated_tweet = tweet.gsub(/(@\w+)|(http:\/\/t.co\/\w*)/ , "" ).downcase
 
 
 		if row[1].to_i == 1 or row[1].to_i == 2 or row[1].to_i == 0 
