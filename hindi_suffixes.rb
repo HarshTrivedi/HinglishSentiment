@@ -237,7 +237,7 @@ require 'awesome_print'
 # "ai", "aee"	-> "a"										(judai -> juda)
 # "ae", "aey" , "aye"	-> "a"								(uske -> uska)
 #? "ne", "ney" , "nay"	-> ""
-#? "ni", "nee" 
+#? "ni", "nee" 												(X(patni), X(chatni))
 #? "na"
 #? "te", "tey"
 #? "in", "ing"
@@ -247,9 +247,9 @@ require 'awesome_print'
 # "on"					-> "a"								(kaminon -> kamina) X(khayalon -> khayala)
 # "eN", "ein"			-> "a"								(kaminen , kaminein -> kamina) X(khayalen , khayalein -> khayala)
 # "akr" , "akar"		-> "_"								(lekar , dekr , puchkar , pahonchkr) -> (le , de , puch , pahonch)
-# "aie" , "aiye"		-> "a"
+# "aie" , "aiye"		-> "a"								(khaie -> kha)
 # "ain"
-# "aya"
+# "aya"					-> ""
 # "egi", "egee"
 # "ega"
 # "ogi", "ogee"
@@ -265,23 +265,23 @@ require 'awesome_print'
 # "uoN",
 # "ueN",
 # "uaN",
-# "aegi", "aegee" 
-# "aega"
-# "aogi", "aogee"
-# "aoge", "aoge" , "aogey"
-# "eNgi", "engee"
-# "eNge", "engey"
-# "uNgi", "ungee" , "oongi" , "oongee"
-# "unga", "oonga"
+# "aegi", "aegee"						-> "a"								(kataegi -> kata) 
+# "aega"								-> "a"								(marvaega -> marva)
+# "aogi", "aogee"						-> "a"								(bataogi -> bata)
+# "aoge", "aoge" , "aogey"				-> "a"								(bataoge -> bata)
+# "eNgi", "engee"						-> "_"								(pahenchanegi -> pahenchan)
+# "eNge", "engey", "ege"				-> "_"								(batengey -> bata)
+# "uNgi", "ungee" , "oongi" , "oongee" 	-> "_"								(bataungi -> bata)
+# "unga", "oonga"						-> "_"								(bataunga -> bata, karaunga -> kara)
 # "atiN"
 # "naoN"
 # "naeN"
-# "taoN"
-# "taeN", "taey" , "taye"
-# "iyaN", "iyan" , "iya"
-# "iyoN", "iyo"
-# "iyaN",
-# "aengi", "aengee"
+# "taoN", "tao"							-> "e"								(bataon -> bate)
+# "taeN", "taey" , "taye"				-> "e"								(kataen -> kate, bataye -> bate)
+# "iyaN", "iyan" , "iya"				-> "i"								(battiyan -> batti, lakdiya -> lakdi)
+# "iyoN", "iyo"							-> "i"								(ladkiyon -> ladki)
+# "iyaN",								-> "i"								(khidkiyan -> khidki, X(duniyan !-> duni))
+# "aengi", "aengee"						-> "ana"							(marvaengi -> marvana)
 # "e{n}ge", "e{n}gey"					-> "_"								(chalenge , chalengey , chalegey -> chal)
 # "{a}ungi", "{a}oongi" , "{a}oongee" 	-> "a"								(banauangi , bataungi -> bana , bata)
 # "aunga", "aoonga"						-> "a"								(banauanga , bataunga -> bana , bata)
@@ -338,3 +338,5 @@ end
 
 
 
+# 1. if suffix is the word itself, don't convert
+# 2. suffix should be lesser by 2 or more than the original word
