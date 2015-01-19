@@ -1,15 +1,16 @@
+
 require 'awesome_print'
 require 'rubyXL'
 
 # require 'normalize_hinglish'
 
-stemming_workbook = RubyXL::Parser.parse("stemming_rules.xlsx")
+stemming_workbook = RubyXL::Parser.parse("/home/harsh/HinglishSentiment/stemming_rules.xlsx")
 @stemming_table = stemming_workbook[0].get_table(["from_suffix" , "to_suffix"])[:table]
 
-normalizing_workbook = RubyXL::Parser.parse("normalizing_rules.xlsx")
+normalizing_workbook = RubyXL::Parser.parse("/home/harsh/HinglishSentiment/normalizing_rules.xlsx")
 @normalizing_table = normalizing_workbook[0].get_table(["from_normalize" , "to_normalize"])[:table]
 
-testing_workbook = RubyXL::Parser.parse("test_clusters.xlsx")
+testing_workbook = RubyXL::Parser.parse("/home/harsh/HinglishSentiment/test_clusters.xlsx")
 @testing_sheet = testing_workbook[0]
 
 # @i = 0
@@ -33,18 +34,20 @@ def hinglish_stemmer(word , applied_rules_hash = {})
 	froms = froms.sort_by(&:size).reverse
 	# ap froms
 
-	for from in froms
-		to = from_to_hash[from.strip]
-		# ap "HEY: #{ not word.gsub(/#{from.strip}$/).to_a.empty?}       #{to.strip == '?'}" if from == "e" and word == "apne"
-		
-		boolX = (not word.gsub(/#{from.strip}$/).to_a.empty?)
-		boolY = (not to.strip == "?")  rescue	true
-		if boolX and boolY
-			applied_rules_hash["#{from.strip}$"] = "#{to}"  
-			word = word.gsub(/#{from.strip}$/ ,  to.strip.gsub(/_/ , "") ) 
+	# Doing it 2ce so that each of the rule gets a chance to be applied before and after of each and every other regex
+	2.times do
+		for from in froms
+			to = from_to_hash[from.strip]
+			# ap "HEY: #{ not word.gsub(/#{from.strip}$/).to_a.empty?}       #{to.strip == '?'}" if from == "e" and word == "apne"
+			
+			boolX = (not word.gsub(/#{from.strip}$/).to_a.empty?)
+			boolY = (not to.strip == "?")  rescue	true
+			if boolX and boolY
+				applied_rules_hash["#{from.strip}$"] = "#{to}"  
+				word = word.gsub(/#{from.strip}$/ ,  to.strip.gsub(/_/ , "") ) 
+			end
 		end
 	end
-
 	word.gsub!(/([^oe\W])(\1)+/ , '\1')
 	word.gsub!(/([oe])(\1)+/ , '\1\1')
 
@@ -75,6 +78,10 @@ def hinglish_normalizer(word , applied_rules_hash = {})
 end
 
 
+
+def normalize_stem(word)
+	hinglish_stemmer( hinglish_normalizer(word)[0] , hinglish_normalizer(word)[1] )[0]
+end
 
 def check_row(row)
 	return nil if !( (not @testing_sheet[row][0].nil? ) rescue false )
