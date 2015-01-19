@@ -1,16 +1,23 @@
 require 'awesome_print'
 require 'rubyXL'
+
 # require 'normalize_hinglish'
 
 stemming_workbook = RubyXL::Parser.parse("stemming_rules.xlsx")
 @stemming_table = stemming_workbook[0].get_table(["from_suffix" , "to_suffix"])[:table]
+
+normalizing_workbook = RubyXL::Parser.parse("normalizing_rules.xlsx")
+@normalizing_table = normalizing_workbook[0].get_table(["from_normalize" , "to_normalize"])[:table]
 
 testing_workbook = RubyXL::Parser.parse("test_clusters.xlsx")
 @testing_sheet = testing_workbook[0]
 
 # @i = 0
 
-def hinglish_stemmer(word)
+
+
+def hinglish_stemmer(word , applied_rules_hash = {})
+
 	return word if word.nil?
 
 	word.downcase!
@@ -21,7 +28,7 @@ def hinglish_stemmer(word)
 	################################
 	hash = {}
 	@stemming_table.each{|x| hash[x["from_suffix"]] = x["to_suffix"]  }
-	from_to_hash = {} ; froms = [] ; applied_rules_hash = {}
+	from_to_hash = {} ; froms = [] ; #applied_rules_hash = {}
 	hash.keys.each{|from| froms += from.split(",");  from.split(",").each{|e| from_to_hash[e.strip] = hash[from.strip]}  ; }
 	froms = froms.sort_by(&:size).reverse
 	# ap froms
@@ -33,7 +40,7 @@ def hinglish_stemmer(word)
 		boolX = (not word.gsub(/#{from.strip}$/).to_a.empty?)
 		boolY = (not to.strip == "?")  rescue	true
 		if boolX and boolY
-			applied_rules_hash["#{from.strip}"] = "#{to}"  
+			applied_rules_hash["#{from.strip}$"] = "#{to}"  
 			word = word.gsub(/#{from.strip}$/ ,  to.strip.gsub(/_/ , "") ) 
 		end
 	end
@@ -45,11 +52,39 @@ def hinglish_stemmer(word)
 end
 
 
+def hinglish_normalizer(word , applied_rules_hash = {})
+	return word if word.nil?
+
+	word.downcase!
+	hash = {}
+	@normalizing_table.each{|x| hash[x["from_normalize"]] = x["to_normalize"]  }
+	from_to_hash = {} ; froms = [] ; 
+	hash.keys.each{|from| froms += from.split("||");  from.split("||").each{|e| from_to_hash[e.strip] = hash[from.strip]}  ; }
+	froms = froms.sort_by(&:size).reverse
+
+	for from in froms
+		to = from_to_hash[from.strip]
+		boolX = (not word.gsub(/#{from.strip}/).to_a.empty?)
+		boolY = (not to.strip == "?")  rescue	true
+		if boolX and boolY
+			applied_rules_hash["#{from.strip}"] = "#{to}"  
+			word = word.gsub(/#{from.strip}/ ,  to.strip.gsub(/_/ , "") ) 
+		end
+	end
+	return word , applied_rules_hash
+end
+
+
+
 def check_row(row)
 	return nil if !( (not @testing_sheet[row][0].nil? ) rescue false )
 	word_wise_applied_rules = {}
-	uniques = (0..99).map{|i| @testing_sheet[row][i].value rescue nil }.map{|element|  ( stemmed_word , word_wise_applied_rules[element] = hinglish_stemmer(element)  ) if not element.nil?  ;   stemmed_word  }.compact.uniq
-	return uniques.size == 1 , word_wise_applied_rules
+	uniques = (0..99).map{|i| @testing_sheet[row][i].value rescue nil }.map{|element|  
+		( stemmed_word , word_wise_applied_rules[element] = hinglish_stemmer( hinglish_normalizer(element)[0] , hinglish_normalizer(element)[1] )  ) if not element.nil?  ;   
+		stemmed_word  
+		}.compact.uniq
+	extended_uniques = uniques.map{|x|  x.gsub(/a$/ , "") }
+	return (uniques.size == 1 or extended_uniques == 1 ), word_wise_applied_rules
 end
 
 def print_cluster( row)
@@ -61,7 +96,7 @@ def print_cluster( row)
 	puts
 	for i in 0..100
 		break if ( @testing_sheet[row].nil? or @testing_sheet[row][i].nil?  )
-		print "#{hinglish_stemmer(@testing_sheet[row][i].value)[0]} " if not @testing_sheet[row][i].value.empty?
+		print "#{ hinglish_stemmer( hinglish_normalizer(@testing_sheet[row][i].value)[0] , hinglish_normalizer(@testing_sheet[row][i].value)[1] )[0]  } " if not @testing_sheet[row][i].value.empty?
 	end
 	puts 
 end
