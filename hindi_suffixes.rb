@@ -235,35 +235,34 @@ require 'awesome_print'
 # "ao"			-> "a"										(bajao -> baja)
 # "{dij}ie", "{dij}iey" , "{dij}iye" , "{dij}iyeh"	-> "_"	(bata{dij}ie , bata{dij}iey , bata{dij}iye , bata{dij}iyeh -> bata)
 # "ai", "aee"	-> "a"										(judai -> juda)
-# "ae", "aey" , "aye"	-> "a"								(uske -> uska)
-#? "ne", "ney" , "nay"	-> ""
-#? "ni", "nee" 												(X(patni), X(chatni))
-#? "na"
-#? "te", "tey"
+# "ae", "aey" , "aye"					-> "a"				(uske -> uska)
+#? "ne", "ney" , "nay"					-> "_"				(kaatne -> kaat)
+#? "ni", "nee"							-> "_"				(deewani -> )(X(patni), X(chatni))
+#? "na"									-> "_"				(katna -> kat, X(sapna !-> sap))
+# "te", "tey"							-> "_"				(machalte -> machal)
 #? "in", "ing"
-#? "ti", "tee"
-#? "ta"
+# "ti", "tee"							-> "_"				(machalti -> machal, X(saraswati -> saraswa))
+# "ta"									-> "_"				(karvata -> karava, mahekta -> mahek)
 # "an"
-# "on"					-> "a"								(kaminon -> kamina) X(khayalon -> khayala)
-# "eN", "ein"			-> "a"								(kaminen , kaminein -> kamina) X(khayalen , khayalein -> khayala)
-# "akr" , "akar"		-> "_"								(lekar , dekr , puchkar , pahonchkr) -> (le , de , puch , pahonch)
-# "aie" , "aiye"		-> "a"								(khaie -> kha)
+# "on"									-> "a"				(kaminon -> kamina) X(khayalon -> khayala)
+# "eN", "ein"							-> "a"				(kaminen , kaminein -> kamina) X(khayalen , khayalein -> khayala)
+# "akr" , "akar"						-> "_"				(lekar , dekr , puchkar , pahonchkr) -> (le , de , puch , pahonch)
+# "aie" , "aiye"						-> "a"				(khaie -> kha)
 # "ain"
-# "aya"					-> ""
-# "egi", "egee"
-# "ega"
-# "ogi", "ogee"
-# "oge", "ogey" , "ogay"
-# "ane", "aney" , "anay"
-# "ana"
-# "ate", "atey" , "ate"
-# "ati", "atee"
-# "ata"
-# "tiN",
-# "aoN",
-# "aeN",
-# "uoN",
-# "ueN",
+# "aya"									-> "a"				(karaya -> kara, X(maya -> ma))
+# "egi", "egee"							-> "a"				(karegi -> kara, karvaegi -> karva)
+# "ega"									-> "_"				(karega -> kar)
+# "ogi", "ogee"							-> "_"				(kaatogi -> kaat)
+# "oge", "ogey" , "ogay"				-> "_"				(kaatoge -> kaat)
+# "ane", "aney" , "anay"				-> "a"				(katane -> kata, chakhane -> chakha, X(diwane !-> diwa))
+# "ana"									-> "a"				(karvana -> karva, X(diwana !-> diwa))
+# "ate", "atey" , "ate"					-> "a"								(katey -> kata, machalate -> machala)
+# "ati", "atee"							-> "a"								(karvati -> karva)
+# "ata"									-> "a"								(marvata -> marva, mata -> ma)
+# "aoN",								-> "a"								(kataon -> kata)
+# "aeN",								-> "a"								(kataen -> kata, gundaen -> gunda)
+# "uoN",								-> "u"								(mrutyuon -> mrutyu)
+# "ueN",								-> "u"								(mrutyuen -> mrutyu, X(kuen !-> ku))
 # "uaN",
 # "aegi", "aegee"						-> "a"								(kataegi -> kata) 
 # "aega"								-> "a"								(marvaega -> marva)
@@ -337,6 +336,14 @@ end
 
 
 
-
+# Observations and suggestions
 # 1. if suffix is the word itself, don't convert
 # 2. suffix should be lesser by 2 or more than the original word
+# 3. "va" should be converted to "a" at the end, because words like karvati will stem to karva which will further stem to kar or kara
+# 4. n after a vowel at the end of word should be removed.
+# 5. extra 'a' at the end of a word having la, da, 
+# 6.1 when removing na suffix words like sapna losses its meaning. If the root word formed is absent in well formed corpus we can skip stemming for the word
+# 6.2 Another soln - Find probablity of occurence of stemmed and original word. The one with higher P(a) stays. For this we need to have perfect word count.
+# 7. aega suffix should be removed before ega
+# 8. aogi suffix should be removed before ogi
+# 9. ane b4 ne
