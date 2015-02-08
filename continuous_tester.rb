@@ -4,13 +4,15 @@ require 'rubyXL'
 
 # require 'normalize_hinglish'
 
-stemming_workbook = RubyXL::Parser.parse("/home/harsh/HinglishSentiment/stemming_rules.xlsx")
+project_path = File.expand_path File.dirname(__FILE__)
+
+stemming_workbook = RubyXL::Parser.parse(File.join project_path, "stemming_rules.xlsx")
 @stemming_table = stemming_workbook[0].get_table(["from_suffix" , "to_suffix"])[:table]
 
-normalizing_workbook = RubyXL::Parser.parse("/home/harsh/HinglishSentiment/normalizing_rules.xlsx")
+normalizing_workbook = RubyXL::Parser.parse(File.join project_path, "normalizing_rules.xlsx")
 @normalizing_table = normalizing_workbook[0].get_table(["from_normalize" , "to_normalize"])[:table]
 
-testing_workbook = RubyXL::Parser.parse("/home/harsh/HinglishSentiment/test_clusters.xlsx")
+testing_workbook = RubyXL::Parser.parse(File.join project_path, "test_clusters.xlsx")
 @testing_sheet = testing_workbook[0]
 
 # @i = 0
