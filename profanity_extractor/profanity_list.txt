@@ -493,7 +493,7 @@ bosachod
 .
 .
 .
-(bh?osa?d?chod)|(bh?osa?d)
+(bh?osa?d?chod)|(bh?osa?(d|r)(i|e)?(vala))
 
 
 
@@ -549,7 +549,7 @@ chodva
 .
 .
 .
-ch(o|u)d(u|ai)
+ch(o|u)d(ai|u|a)
 ch(o|u)da?(w|v)a(y|i)e?
 
 
@@ -564,77 +564,130 @@ chusanawala
 chusa?n(a|e)(wali)
 
 
-Chusnawali/Chusnawala
-Chutiya (chutia, chutiyah)
-Chut, choot
-Chutan
-Gaand
-Gaandu, ghondoo
+chutiya
+chutia
+chutiyah
+chut
+chuta
+chutan
+.
+.
+.
+chut((iy?ah?)|(a?n))
+
+chodiya
+chodiyah
+chodia
+gelchodia
+ghelchodiya
+ghalchodiya
+.
+.
+.
+(gh?(a|e)?l)?chod(iy?ah?)
+
+
+gaand
+gaandu
+ghondoo
+.
+.
+.
+gh?an?du?
+
+
 Gadha
-Ghelchodia
-Bakland
-Loda, Lauda, Lawda, lavde, lavda
-Lund
-Mammey (mumm-aye)
-Hug, hugna, hugnaa
-Hijra (hijde)
-Kaamchor
-Khota
-Kuttiya
-Paad
-Rundi
-Saala
-Saala kutta
-Saali kutti
-Sali Kuta
-Sali Kutti
-Tatti
-Kamina
-kuthi for girl, kutha for guy (means b!tch)
-bandhar
-Apni gaand mein muthi daal
-Apni lund choos
-Apni ma ko ja choos
-Bandaa
-Bhen ke laude
-Bhen ke takke
-Abla naari tera buble bhaari
-BhonsRi-Waalaa
-Bhadwe ka awlat
-Bhains ki aulad
-Buddha Khoosat
-Buhtah-nee ka
-Backarchodu
-Bhadkhau
-Bol teri gand kaise maru
-Booblay
-Bur ki chatani
-Bumchod
-Carrom board
-Chhola Phudakna
-Chunni
-Chinaal
-Chodra
+.
+.
+.
+gadha
+
+
+lauda
+lavde
+lavda
+loda
+lund
+.
+.
+.
+((la(v|u)d(a|e))|(lod(a|e))|(l(a|u)?nd))
+
+
+hijde
+hijra
+hijre
+.
+.
+.
+hij((d|r)(a|e))
+
+
+kutiya
+kutia
+kuta
+kuti
+.
+.
+.
+kuth?(a|i)(y?a)?
+
+
+kaamchor
+.
+.
+.
+kaa?mchor
+
+
+saala
+saali
+.
+.
+.
+sa?l(a|i)
+
+
+tatti
+tatte
+.
+.
+.
+tat(i|e)
+
+kamina
+kamine
+.
+.
+.
+kamin(e|a|i)
+
+	choos
+	Bandaa
+	Bhenkelaude
+	Bhenketakke
+
+buble
+bublay
+bobley
+bobla
+.
+.
+.
+b(o|u)bl(a|e)y
+
+
 Chodu bhagat
-Choochii
-Chudai khana
-Chudan chudai
-Chut ka pujari
-Chut ka bhoot
-Choot ke bhoot Vaginal ghost
-Chup Ke
-Chup Ke Chut Hai
-chup karo (shut up)
-chut karo (do the cunt)
 Chodela
-Chut marike (chut mari ke)
-Chut ke pasine mein talay huye bhajiye
-Chut ke dhakkan
-Chut ke gulam
-Chutiya ka bheja ghas khane gaya hai
-Choot marani ka
-Choot ka baal
-Chipkali ke jhaat ke baal
+
+
+jhat
+jhant
+.
+.
+.
+jhan?t
+
 Chipkali ke jhaat ke paseene
 Chipkali ke gaand ke pasine
 Chipkali ke chut ke pasine
