@@ -1,0 +1,125 @@
+# Format:
+# # Original word: 'X'
+# # Spelling variations of 'X' in regex; commented out because they're covered by the last line (e.g. covers fuk and pussi)
+# Vowel-to-nonalphabetic-character substitutions or vowel omissions (e.g. covers f*ck and pssy)
+# Inner letter-to-nonalphabetic substitutions (e.g. cover f**k or p***y)
+# Cover the original spelling variations, and randomly inserted or repeated characters (e.g. fuck, fuuuuck, fu--c032k)
+
+# Original word: 'fuck'
+# fu[ck]?[ck]
+f[^a-zA-Z]?[ck]?[ck]
+f[^a-zA-Z]+[^a-zA-Z]?[ck]
+f+[^a-zA-Z\s]*u+[^a-zA-Z\s]*[ck]*[^a-zA-Z\s]*[ck]+
+
+# Original word: 'wank'
+# wan[ck]
+w[^a-zA-Z]?n[ck]
+w[^a-zA-Z]+[^a-zA-Z]?[ck]
+w+[^a-zA-Z\s]*a+[^a-zA-Z\s]*n+[^a-zA-Z\s]*[ck]+
+
+# Original word: 'dick'
+# more complicated than usual, in order to exclude 'dic' but include every other variation of di[ck]+
+# dik[ck]?
+# dic[ck]
+d[^a-zA-Z]?k[ck]?
+d[^a-zA-Z]?c[ck]
+d[^a-zA-Z]+[^a-zA-Z]?[ck]
+d+[^a-zA-Z\s]*i+[^a-zA-Z\s]*k+[^a-zA-Z\s]*[ck]*
+d+[^a-zA-Z\s]*i+[^a-zA-Z\s]*c+[^a-zA-Z\s]*[ck]+
+
+# Original word: 'cock'
+# [ck]o[ck][ck]
+[ck][^a-zA-Z]?[ck][ck]
+[ck][^a-zA-Z]+[^a-zA-Z]?[ck]
+[ck]+[^a-zA-Z\s]*o+[^a-zA-Z\s]*[ck]+[^a-zA-Z\s]*[ck]+
+
+# Original word: 'penis'
+# penis
+p[^a-zA-Z]?nis
+p[^a-zA-Z]+[^a-zA-Z]?[^a-zA-Z]?s
+p+[^a-zA-Z\s]*e+[^a-zA-Z\s]*n+[^a-zA-Z\s]*i+[^a-zA-Z\s]*s+
+
+# Original word: 'crap'
+# [ck]rap
+[ck]r[^a-zA-Z]?p
+[ck][^a-zA-Z]+[^a-zA-Z]?p
+[ck]+[^a-zA-Z\s]*r+[^a-zA-Z\s]*a+[^a-zA-Z\s]*p+
+
+# Original word: 'shit'
+# shi[tz]
+sh[^a-zA-Z]?[tz]
+s[^a-zA-Z]+[^a-zA-Z]?[tz]
+s+[^a-zA-Z\s]*h+[^a-zA-Z\s]*i+[^a-zA-Z\s]*[tz]+
+
+# Original word: 'piss'
+# piss
+p[^a-zA-Z]?ss
+p[^a-zA-Z]+[^a-zA-Z]?s
+p+[^a-zA-Z\s]*i+[^a-zA-Z\s]*s+[^a-zA-Z\s]*s+
+
+# Original word: 'skeet'
+# s[ck]eet
+s[ck][^a-zA-Z]*t
+s[^a-zA-Z]+[^a-zA-Z]?[^a-zA-Z]?t
+s+[^a-zA-Z\s]*[ck]+[^a-zA-Z\s]*e+[^a-zA-Z\s]*e+[^a-zA-Z\s]*t+
+
+# Original word: 'bitch'
+# bitch
+b[^a-zA-Z]?tch
+b[^a-zA-Z]+[^a-zA-Z]?[^a-zA-Z]?h
+b+[^a-zA-Z\s]*i+[^a-zA-Z\s]*t+[^a-zA-Z\s]*c+[^a-zA-Z\s]*h+
+
+# Original word: 'tits'
+# tits
+t[^a-zA-Z]?ts
+t[^a-zA-Z]+[^a-zA-Z]?s
+t+[^a-zA-Z\s]*i+[^a-zA-Z\s]*t+[^a-zA-Z\s]*s+
+
+# Original word: 'titties'
+# titties
+t[^a-zA-Z]?tties
+t[^a-zA-Z]+[^a-zA-Z]?[^a-zA-Z]?[^a-zA-Z]?[^a-zA-Z]?s
+t+[^a-zA-Z\s]*i+[^a-zA-Z\s]*t+[^a-zA-Z\s]*t+[^a-zA-Z\s]*i+[^a-zA-Z\s]*e+[^a-zA-Z\s]*s+
+
+# Original word: 'vag' and 'vagina'
+# (?<=[\s])vag(ina|\s)
+(?<=[\s])v[^a-zA-Z]g(ina|\s)
+(?<=[\s])v[^a-zA-Z]+[^a-zA-Z]?([^a-zA-Z]?[^a-zA-Z]?a|\s)
+(?<=[\s])v+[^a-zA-Z\s]*a+[^a-zA-Z\s]*g+(i+[^a-zA-Z\s]*n+[^a-zA-Z\s]*a+|\s)
+
+# Original word: 'pussy'
+# puss[yie]
+p[^a-zA-Z]?ss[yie]
+p[^a-zA-Z]+[^a-zA-Z]?[^a-zA-Z]?[yie]
+p+[^a-zA-Z\s]*u+[^a-zA-Z\s]*s+[^a-zA-Z\s]*s+[^a-zA-Z\s]*[yie]+
+
+# Original word: 'cunt'
+# [kc]unt
+[kc][^a-zA-Z]?nt
+[kc][^a-zA-Z]+[^a-zA-Z]?t
+[kc]+[^a-zA-Z\s]*u+[^a-zA-Z\s]*n+[^a-zA-Z\s]*t+
+
+# Original word: 'twat'
+# twat
+tw[^a-zA-Z]?t
+t[^a-zA-Z]+[^a-zA-Z]?t
+t+[^a-zA-Z\s]*w+[^a-zA-Z\s]*a+[^a-zA-Z\s]*t+
+
+# Original word: 'clit'
+# [ck]lit
+[ck]l[^a-zA-Z]?t
+[ck][^a-zA-Z]+[^a-zA-Z]?t
+[ck]+[^a-zA-Z\s]*l+[^a-zA-Z\s]*i+[^a-zA-Z\s]*t+
+
+# Original word: 'ass'
+# ass
+[^a-zA-Z]?ss
+a[^a-zA-Z]+s
+a+[^a-zA-Z\s]*s+[^a-zA-Z\s]*s+
+
+# Original word: 'cum'
+# [ck]um
+[ck][^a-zA-Z]?m
+[ck][^a-zA-Z]+m
+[ck]+[^a-zA-Z\s]*u+[^a-zA-Z\s]*m+
+
